@@ -6,6 +6,7 @@ It contains some queries to insert, update, delete and add data into the mysql d
 and I am using Wamp server to access the database. You can download it from here: https://www.wampserver.com/en/download-wampserver-64bits/
 
 <b>MySql database details:</b><br>
+
 <b>Database name:</b> db_test<br>
 <b>Table name:</b> tbl_student<br>
 

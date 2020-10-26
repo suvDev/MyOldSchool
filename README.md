@@ -5,9 +5,9 @@ It contains some queries to insert, update, delete and add data into the mysql d
 <b>Database:</b> MySql 8.0.21
 and I am using Wamp server to access the database. You can download it from here: https://www.wampserver.com/en/download-wampserver-64bits/
 
-<b>MySql database details:</b> 
-Database name: db_test
-Table name: tbl_student
+<b>MySql database details:</b><br>
+<b>Database name:</b> db_test<br>
+<b>Table name:</b> tbl_student<br>
 
 The table you will create initially should have 4 columns: sid(Primary key integer type), sname(text), rollno(integer), marks(Double). Later you can manipulate the db as per your requirement.
 

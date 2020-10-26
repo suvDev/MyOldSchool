@@ -3,7 +3,7 @@ It is a basic application as of now which is primarily focused on student databa
 It contains some queries to insert, update, delete and add data into the mysql database and uses Restful web services to access and perform these operations.
 
 <b>Database:</b> MySql 8.0.21
-I am using Wamp server to access the database. You can download it from here: https://www.wampserver.com/en/download-wampserver-64bits/
+and I am using Wamp server to access the database. You can download it from here: https://www.wampserver.com/en/download-wampserver-64bits/
 
 <b>Note:</b> It by default runs on port 3306 but I am using 3308 for this project.
 

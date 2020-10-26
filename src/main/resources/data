@@ -1,0 +1,4 @@
+dbManager.driver = com.mysql.cj.jdbc.Driver
+dbManager.url = jdbc:mysql://localhost:3308/db_test
+dbManager.uid = root
+dbManager.password =

@@ -1,6 +1,7 @@
 package com.myoldschool.manager.api;
 
 import com.myoldschool.manager.BussLayer;
+import com.myoldschool.manager.BussLayerHibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +13,13 @@ public class ApiController {
     @Autowired
     BussLayer bs;
 
+    @Autowired
+    BussLayerHibernate bsh;
+
     @GetMapping("/getRecords")
     public ArrayList<Student> getAllRecords() {
-        return bs.showData();
+//        return bs.showData();
+        return bsh.showData();
     }
 
     @GetMapping("/addUser")

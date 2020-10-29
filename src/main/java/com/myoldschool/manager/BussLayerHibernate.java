@@ -1,6 +1,7 @@
 package com.myoldschool.manager;
 
 import com.myoldschool.manager.api.Student;
+import com.myoldschool.manager.hibernate.StudentHibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,11 +10,11 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class BussLayerHibernate {
@@ -22,62 +23,116 @@ public class BussLayerHibernate {
     private Transaction t;
     private SessionFactory factory;
 
-    public BussLayerHibernate(){
+    public BussLayerHibernate() {
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
         Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
         factory = meta.getSessionFactoryBuilder().build();
-//        t = session.beginTransaction();
     }
 
     @Autowired
     DBManager db;
 
-    public ArrayList<Student> showData(){
+    public ArrayList<Student> showData() {
         Query query = null;
-        try{
+        try {
             session = factory.openSession();
             String hql = "FROM StudentHibernate";
             query = session.createQuery(hql);
             return new ArrayList<Student>(query.list());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             session.close();
+            session = null;
         }
 
         return null;
     }
 
-    public String insertData(int id, String name, int rollno, Double marks){
-        String query = "insert into tbl_student(sid, sname, rollno, marks) values('"+id+"','"+name+"','"+rollno+"','"+marks+"')";
-        if(db.recordsManipulation(query)){
-            System.out.println("Records inserted!");
-            return "Records inserted!";
-        }else{
-            System.out.println("Insertion failed!");
+    public String insertData(int id, String name, int rollno, Double marks) {
+
+        try {
+            session = factory.openSession();
+            t = session.beginTransaction();
+
+            StudentHibernate std = new StudentHibernate();
+            std.setSid(id);
+            std.setMarks(marks);
+            std.setRollno(rollno);
+            std.setSname(name);
+
+            session.save(std);
+            t.commit();
+
+            if (session.getTransaction().getStatus() == TransactionStatus.COMMITTED) {
+                return "Records inserted!";
+            } else {
+                return "Insertion failed!";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return "Insertion failed!";
+        } finally {
+            session.close();
+            session = null;
         }
+
+//        return null;
     }
 
-    public String updateData(int id, String name){
-        String query = "update tbl_student set sname= '"+name+"' where sid = '"+id+"'";
-        if(db.recordsManipulation(query)){
-            System.out.println("Record updated!");
-            return "Records updated!";
-        }else{
-            System.out.println("Update Failed!");
-            return "Update Failed!";
+    public String updateData(int id, String name, int rollno, String marks) {
+        try {
+            session = factory.openSession();
+            t = session.beginTransaction();
+
+
+            StudentHibernate std = session.get(StudentHibernate.class, id);
+            if(!name.isEmpty())
+                std.setSname(name);
+            if(rollno>0)
+                std.setRollno(rollno);
+            if(!marks.isEmpty())
+                std.setMarks(Double.valueOf(marks));
+
+            session.update(std);
+            t.commit();
+
+            if (session.getTransaction().getStatus() == TransactionStatus.COMMITTED) {
+                return "Records updated!";
+            } else {
+                return "Update failed!";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Update failed!";
+        } finally {
+            session.close();
+            session = null;
         }
+
+//        return null;
     }
 
-    public String deleteRecord(int id){
-        String query = "delete from tbl_student where sid = '"+id+"'";
-        if(db.recordsManipulation(query)){
-            System.out.println("Record deleted!");
-            return "Record deleted!";
-        }else{
-            System.out.println("Deletion Failed!");
-            return "Deletion Failed!";
+    public String deleteRecord(int id) {
+        try {
+            session = factory.openSession();
+            t = session.beginTransaction();
+
+            StudentHibernate std = session.get(StudentHibernate.class, id);
+            session.delete(std);
+
+            t.commit();
+            if (session.getTransaction().getStatus() == TransactionStatus.COMMITTED) {
+                return "Records deleted!";
+            } else {
+                return "Deletion failed!";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Deletion failed!";
+        } finally {
+            session.close();
+            session = null;
         }
     }
 

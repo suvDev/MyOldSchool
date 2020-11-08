@@ -2,14 +2,30 @@ package com.myoldschool.manager.api;
 
 import com.myoldschool.manager.BussLayer;
 import com.myoldschool.manager.BussLayerHibernate;
+import com.myoldschool.manager.ManagerApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 @RestController
+@SpringBootApplication
+@EnableDiscoveryClient
 public class ApiController {
+
+    public static void main(String[] args) {
+        System.setProperty("spring.config.name", "accounts-server");
+
+        SpringApplication.run(ApiController.class, args);
+    }
 
     @Autowired
     BussLayer bs;
@@ -19,8 +35,8 @@ public class ApiController {
 
     @GetMapping("/getRecords")
     public ArrayList<Student> getAllRecords() {
-//        return bs.showData();
-        return bsh.showData();
+        return bs.showData();
+//        return bsh.showData();
     }
 
     @GetMapping("/addUser")

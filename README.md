@@ -24,4 +24,4 @@ Don't forget to start wamp server first before running the above command.
 
 <b>Hibernate</b>: Hibernate support is added to this project, please check branch "feature/hibernate". Now I am performing crud operations by using hibernate , that you can check in class <b>BussLayerHibernate</b> but still manual queries codebase exist in the project in class BussLayer.
 
-
+<b>Microservices</b>: Added microservices to the project. Check module "demo" for the same.

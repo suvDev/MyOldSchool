@@ -2,11 +2,18 @@ package com.myoldschool.manager.api;
 
 import com.myoldschool.manager.BussLayer;
 import com.myoldschool.manager.BussLayerHibernate;
+import com.myoldschool.manager.ManagerApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 @RestController
 public class ApiController {
@@ -19,8 +26,8 @@ public class ApiController {
 
     @GetMapping("/getRecords")
     public ArrayList<Student> getAllRecords() {
-//        return bs.showData();
-        return bsh.showData();
+        return bs.showData();
+//        return bsh.showData();
     }
 
     @GetMapping("/addUser")
@@ -41,15 +48,19 @@ public class ApiController {
     }
 
     @PostMapping(path = "/updateUser", consumes = "application/json", produces = "application/json")
-    public String updateUser(@RequestBody Student student) {
+    public HashMap<String, String> updateUser(@RequestBody Student student) {
 //        return bs.updateData(student.getId(), student.getName());
-        return bsh.updateData(student.getId(), student.getName(), student.getRollno(), student.getMarks());
+        HashMap<String, String> map = new HashMap<>();
+        map.put("status",bsh.updateData(student.getId(), student.getName(), student.getRollno(), student.getMarks()));
+        return map;
     }
 
     @PostMapping(path = "/deleteUser", consumes = "application/json", produces = "application/json")
-    public String deleteUser(@RequestBody Student student) {
+    public HashMap<String, String> deleteUser(@RequestBody Student student) {
 
 //        return bs.deleteRecord(student.getId());
-        return bsh.deleteRecord(student.getId());
+        HashMap<String, String> map = new HashMap<>();
+        map.put("status",bsh.deleteRecord(student.getId()));
+        return map;
     }
 }

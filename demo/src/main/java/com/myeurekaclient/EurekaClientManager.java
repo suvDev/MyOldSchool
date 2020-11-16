@@ -19,6 +19,6 @@ public class EurekaClientManager {
 
     @RequestMapping("/")
     public String testEureka(){
-        return "eureka client running";
+        return "Eureka client running.";
     }
 }

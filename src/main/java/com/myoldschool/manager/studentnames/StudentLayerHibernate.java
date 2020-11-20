@@ -1,9 +1,7 @@
 package com.myoldschool.manager.studentnames;
 
-import com.myoldschool.manager.api.Student;
 import com.myoldschool.manager.api.StudentCount;
 import com.myoldschool.manager.hibernate.StudentCountHibernate;
-import com.myoldschool.manager.hibernate.StudentHibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

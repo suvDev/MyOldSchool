@@ -1,3 +1,4 @@
 rootProject.name = 'manager'
 include 'demo'
+include 'testService'
 

@@ -1,7 +1,7 @@
-# Configure this Discovery Server
+# Discovery Server Access
 spring:
   application:
-    name: zuul-service
+    name: test-service
 
 eureka:
   client:
@@ -14,11 +14,4 @@ eureka:
 
 # HTTP Server
 server:
-  port: 5555   # HTTP (Tomcat) port
-
-zuul:
-  routes:
-    test-service:
-      path: /test-service/**
-      serviceId: services-info
-      stripPrefix: true
+  port: 4445   # HTTP (Tomcat) port

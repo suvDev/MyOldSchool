@@ -19,6 +19,10 @@ server:
 zuul:
   routes:
     test-service:
-      path: /test-service/**
+      path: /myTestServic/**
+      serviceId: test-service
+      stripPrefix: false
+    services-info:
+      path: /getInfo/**
       serviceId: services-info
-      stripPrefix: true
+      stripPrefix: false

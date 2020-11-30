@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 @EnableDiscoveryClient
-@RestController
 public class StudentNameCountClient {
 
     public static void main(String[] args) {

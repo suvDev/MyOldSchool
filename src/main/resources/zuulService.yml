@@ -19,7 +19,7 @@ server:
 zuul:
   routes:
     test-service:
-      path: /myTestServic/**
+      path: /myTestService/**
       serviceId: test-service
       stripPrefix: false
     services-info:

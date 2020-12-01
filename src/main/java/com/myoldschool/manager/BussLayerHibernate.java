@@ -29,9 +29,6 @@ public class BussLayerHibernate {
         factory = meta.getSessionFactoryBuilder().build();
     }
 
-    @Autowired
-    DBManager db;
-
     public ArrayList<Student> showData() {
         Query query = null;
         try {
@@ -45,7 +42,6 @@ public class BussLayerHibernate {
             session.close();
             session = null;
         }
-
         return null;
     }
 

@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
@@ -14,6 +15,7 @@ public class ManagerApplication {
 	public static void main(String[] args) {
 		System.setProperty("spring.config.name", "registration-server");
 		SpringApplication.run(ManagerApplication.class, args);
+		System.out.println("eureka server running!!");
 	}
 
 }

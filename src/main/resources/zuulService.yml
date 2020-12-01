@@ -1,0 +1,28 @@
+# Configure this Discovery Server
+spring:
+  application:
+    name: zuul-service
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+    instance:
+      hostname: localhost
+
+# HTTP Server
+server:
+  port: 5555   # HTTP (Tomcat) port
+
+zuul:
+  routes:
+    test-service:
+      path: /myTestService/**
+      serviceId: test-service
+      stripPrefix: false
+    services-info:
+      path: /getInfo/**
+      serviceId: services-info
+      stripPrefix: false

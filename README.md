@@ -26,4 +26,4 @@ Don't forget to start wamp server first before running the above command.
 
 <b>Microservices</b>: Added microservices to the project. Check module "demo" for the same. The eureka server runs on port 1111 and the client runs on 2222. After running the project check by using url: <b>"http://localhost:1111/"</b>, there you should see a "SpringEureka" dashboard. To run the client you need to run "EurekaClientManager" inside module "demo". Now refresh the dashboard on browser and there you should see a regsitered client named "ACCOUNT-SERVICE".
 
-<b>ZuulProxy</b>: Added proxy to the microservices with working Pre and Post filters.
+<b>ZuulProxy</b>: Added proxy to microservices with working Pre and Post filters.

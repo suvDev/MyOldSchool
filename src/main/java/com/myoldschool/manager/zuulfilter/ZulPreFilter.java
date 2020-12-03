@@ -1,14 +1,11 @@
 package com.myoldschool.manager.zuulfilter;
 
 import com.myoldschool.manager.AppConstant;
-import com.netflix.zuul.FilterFactory;
-import com.netflix.zuul.FilterFileManager;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.FilterType;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,12 +19,12 @@ public class ZulPreFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 0;
+        return 1;
     }
 
     @Override
     public boolean shouldFilter() {
-        return false;
+        return true;
     }
 
     @Override

@@ -22,7 +22,7 @@ zuul:
       path: /myTestService/**
       serviceId: test-service
       stripPrefix: false
-    services-info:
-      path: /getInfo/**
-      serviceId: services-info
+    inter-comm:
+      path: /testInterComm/**
+      serviceId: inter-comm
       stripPrefix: false

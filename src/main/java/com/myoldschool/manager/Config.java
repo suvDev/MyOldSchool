@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@ComponentScan(basePackages = "com.myoldschool.manager")
+@ComponentScan(basePackages = {"com.myoldschool.manager", "test"})
 @PropertySource("classpath:data")
 public class Config {
 }

@@ -28,4 +28,4 @@ Don't forget to start wamp server first before running the above command.
 
 <b>ZuulProxy</b>: Added proxy to microservices with working Pre and Post filters.
 
-<b>Inter Microservices communication(FeignClient)</b>: Inter microservices communication established by using FeignClient with ZuulPostFilter still enabled.
+<b>Inter Microservices communication(FeignClient)</b>: Inter microservices communication established by using FeignClient with ZuulPostFilter still enabled so check the logs for service <b>MyZuulProxyClient</b> to make sure the communication is working. You should see something like "c.m.manager.zuulfilter.ZulPostFilter     : Response before: intercommunication working between servicesservice running" when you will hit "http://localhost:5555/myTestService"

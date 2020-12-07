@@ -19,8 +19,8 @@ public class ApiController {
 
     @GetMapping("/getRecords")
     public ArrayList<Student> getAllRecords() {
-        return bs.showData();
-//        return bsh.showData();
+//        return bs.showData();
+        return bsh.showData();
     }
 
     @GetMapping("/addUser")

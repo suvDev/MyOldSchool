@@ -21,9 +21,12 @@ ext {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'junit:junit:4.12'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
 	implementation group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '6.0.0.Alpha6', ext: 'pom'
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"

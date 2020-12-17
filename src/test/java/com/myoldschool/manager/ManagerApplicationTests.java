@@ -28,25 +28,30 @@ import static org.mockito.BDDMockito.given;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ManagerApplicationTests {
 
-	@Autowired
-	private TestRestTemplate testRestTemplate;
+    @Autowired
+    private TestRestTemplate testRestTemplate;
 
-	@MockBean
-	private ApiController controller;
+    @MockBean
+    private ApiController controller;
 
-	@Test
-	void testGetAllRecords(){
-		Student student = new Student(1,"Jack",101,"99");
-		ArrayList<Student> mocklist = new ArrayList<>();
-		mocklist.add(student);
-		given(controller.getAllRecords()).willReturn(mocklist);
+    @Test
+    void testGetAllRecords() {
+        Student student = new Student(
+                MockConstants.id, MockConstants.name, MockConstants.rollNo, MockConstants.marks);
+        ArrayList<Student> mockList = new ArrayList<>();
+		mockList.add(student);
+        given(controller.getAllRecords()).willReturn(mockList);
 
-		ResponseEntity<ArrayList<Student>> responseEntity = testRestTemplate.exchange("/getRecords",
-				HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Student>>() {});
-		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        ResponseEntity<ArrayList<Student>> responseEntity = testRestTemplate.exchange("/getRecords",
+                HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Student>>() {
+                });
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-		ArrayList<Student> list = responseEntity.getBody();
-		assertThat(list.get(0).getId()).isEqualTo(1);
-	}
+        ArrayList<Student> list = responseEntity.getBody();
+        assertThat(list.get(0).getId()).isEqualTo(MockConstants.id);
+        assertThat(list.get(0).getName()).isEqualTo(MockConstants.name);
+        assertThat(list.get(0).getRollno()).isEqualTo(MockConstants.rollNo);
+        assertThat(list.get(0).getMarks()).isEqualTo(MockConstants.marks);
+    }
 
 }

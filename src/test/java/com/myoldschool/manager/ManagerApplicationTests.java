@@ -2,9 +2,6 @@ package com.myoldschool.manager;
 
 import com.myoldschool.manager.api.ApiController;
 import com.myoldschool.manager.api.Student;
-import com.netflix.ribbon.proxy.annotation.Http;
-import org.checkerframework.checker.units.qual.A;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -16,11 +13,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,13 +51,18 @@ class ManagerApplicationTests {
     }
 
     @Test
-    void testGetAllRecords() {
+    void testGetAllRecordsAPI() {
+        // Given: Testing response by getRecords API
+        // When: A request to getRecords API is made
         ResponseEntity<ArrayList<Student>> responseEntity = testRestTemplate.exchange(MockConstants.GET_RECORDS,
                 HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Student>>() {
                 });
+        // Then: the status should be 200
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         ArrayList<Student> list = responseEntity.getBody();
+
+        // And: body should contains the following mocked values
         assertThat(list.get(0).getId()).isEqualTo(MockConstants.id);
         assertThat(list.get(0).getName()).isEqualTo(MockConstants.name);
         assertThat(list.get(0).getRollno()).isEqualTo(MockConstants.rollNo);
@@ -71,21 +70,25 @@ class ManagerApplicationTests {
     }
 
     @Test
-    void testPostUser(){
-
+    void testPostUserAPI(){
+        // Given: Testing response by postUser API
+        // When: A request to postUser API is made
         Student student = new Student(
                 MockConstants.id, MockConstants.name, MockConstants.rollNo, MockConstants.marks);
 
+        // with MediaType predefined to avoid <415 unsupported type> error
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<Student> request = new HttpEntity<>(student, headers);
 
         ResponseEntity<Map> result = testRestTemplate.postForEntity(MockConstants.SAVE_RECORDS, request, Map.class);
+
+        // Then: the status should be 200
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 
+        // And: body should contains the following mocked values
         HashMap<String, String> map = (HashMap<String, String>) result.getBody();
-
         assertThat(map.size()).isEqualTo(1);
         assertThat(map.get(MockConstants.STATUS)).isEqualTo(MockConstants.RECORDS_INSERTED);
 

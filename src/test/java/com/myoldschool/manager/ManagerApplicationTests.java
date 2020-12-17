@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 
@@ -41,16 +42,23 @@ class ManagerApplicationTests {
 
     @BeforeAll
     public void mockResponseForApis(){
+
+        // Mock GetUsers API response
         Student student = new Student(
                 MockConstants.id, MockConstants.name, MockConstants.rollNo, MockConstants.marks);
         ArrayList<Student> mockList = new ArrayList<>();
         mockList.add(student);
         given(controller.getAllRecords()).willReturn(mockList);
+
+        // Mock PostUser API response
+        HashMap<String, String> mockResponse = new HashMap<>();
+        mockResponse.put(MockConstants.STATUS, MockConstants.RECORDS_INSERTED);
+        given(controller.postUser(any())).willReturn(mockResponse);
     }
 
     @Test
     void testGetAllRecords() {
-        ResponseEntity<ArrayList<Student>> responseEntity = testRestTemplate.exchange("/getRecords",
+        ResponseEntity<ArrayList<Student>> responseEntity = testRestTemplate.exchange(MockConstants.GET_RECORDS,
                 HttpMethod.GET, null, new ParameterizedTypeReference<ArrayList<Student>>() {
                 });
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -65,15 +73,21 @@ class ManagerApplicationTests {
     @Test
     void testPostUser(){
 
-        Student student = new Student(2, "Adam", 102, "100");
+        Student student = new Student(
+                MockConstants.id, MockConstants.name, MockConstants.rollNo, MockConstants.marks);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<Student> request = new HttpEntity<>(student, headers);
 
-        ResponseEntity<Map> result = testRestTemplate.postForEntity("/postUser", request, Map.class);
+        ResponseEntity<Map> result = testRestTemplate.postForEntity(MockConstants.SAVE_RECORDS, request, Map.class);
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        HashMap<String, String> map = (HashMap<String, String>) result.getBody();
+
+        assertThat(map.size()).isEqualTo(1);
+        assertThat(map.get(MockConstants.STATUS)).isEqualTo(MockConstants.RECORDS_INSERTED);
 
     }
 

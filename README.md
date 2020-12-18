@@ -30,4 +30,4 @@ Don't forget to start wamp server first before running the above command.
 
 <b>Inter Microservices communication(FeignClient)</b>: Inter microservices communication established by using FeignClient with ZuulPostFilter still enabled so check the logs for service <b>MyZuulProxyClient</b> to make sure the communication is working. You should see something like "c.m.manager.zuulfilter.ZulPostFilter     : Response before: intercommunication working between servicesservice running" when you will hit "http://localhost:5555/myTestService"
 
-<b>TDD</b>: Test cases are added for getRecords and postUser API by using TestRestTemplate.
+<b>TDD</b>: Test cases are added for getRecords and postUser API by using TestRestTemplate. Also a separate test class called ApiControllerTest is added to test update and delete user API. The point of adding a separate class ApiControllerTest is to avoid launching a complete server to test the API's so its a faster way to execute tests.

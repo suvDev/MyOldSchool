@@ -11,9 +11,11 @@ public class MockConstants {
     public static final String STATUS = "status";
     public static final String RECORDS_INSERTED = "Records inserted!";
     public static final String RECORDS_UPDATED = "Records updated!";
+    public static final String RECORD_DELETED = "Records deleted!";
 
     // API Endpoints
     public static final String GET_RECORDS = "/getRecords";
     public static final String SAVE_RECORDS = "/postUser";
     public static final String UPDATE_RECORD = "/updateUser";
+    public static final String DELETE_RECORD = "/deleteUser";
 }

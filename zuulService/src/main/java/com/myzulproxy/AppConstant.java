@@ -1,4 +1,4 @@
-package com.myoldschool.manager;
+package com.myzulproxy;
 
 public class AppConstant {
     public static String PRE_FILTER = "pre";

@@ -1,6 +1,6 @@
-package com.myoldschool.manager.zuulfilter;
+package com.myzulproxy.zuulfilter;
 
-import com.myoldschool.manager.AppConstant;
+import com.myzulproxy.AppConstant;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.exception.ZuulException;
 

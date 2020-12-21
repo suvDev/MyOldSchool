@@ -1,13 +1,11 @@
-package com.myoldschool.manager.zuulservice;
+package com.myzulproxy;
 
-import com.myoldschool.manager.ManagerApplication;
-import com.myoldschool.manager.zuulfilter.ZulErrorFilter;
-import com.myoldschool.manager.zuulfilter.ZulPostFilter;
-import com.myoldschool.manager.zuulfilter.ZulPreFilter;
+import com.myzulproxy.zuulfilter.ZulErrorFilter;
+import com.myzulproxy.zuulfilter.ZulPostFilter;
+import com.myzulproxy.zuulfilter.ZulPreFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +17,7 @@ public class MyZuulProxyClient {
 
     public static void main(String[] args) {
         System.setProperty("spring.config.name", "zuulService");
-        SpringApplication.run(ManagerApplication.class, args);
+        SpringApplication.run(MyZuulProxyClient.class, args);
     }
 
     @Bean

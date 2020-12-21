@@ -2,4 +2,5 @@ rootProject.name = 'manager'
 include 'demo'
 include 'testService'
 include 'testService2'
+include 'zuulService'
 

@@ -27,6 +27,23 @@ services:
     ports:
     - "5555:5555"
     container_name: "zuulservice"
-
-
-
+  testService2:
+    build: testService2/
+    image: "suvdev/testservice2"
+    depends_on:
+      - "zuulService"
+    links:
+      - "zuulService:zuulService"
+    ports:
+    - "4446:4446"
+    container_name: "testservice2"
+  testService:
+    build: testService/
+    image: "suvdev/testservice"
+    depends_on:
+      - "testService2"
+    links:
+      - "testService2:testService2"
+    ports:
+      - "4445:4445"
+    container_name: "testservice"

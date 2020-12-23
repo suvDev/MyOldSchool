@@ -1,2 +1,32 @@
-version: '3.0'
+version: '3.3'
 services:
+  mysql:
+    container_name: "mysql-spring-docker"
+    image: mysql
+    environment:
+      MYSQL_DATABASE: db_test
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  manager:
+    build: ./
+    image: "suvdev/spring-boot-docker"
+    ports:
+    - "5000:5000"
+    depends_on:
+      - mysql
+    environment:
+      WAIT_HOSTS: mysql:3306
+    container_name: "spring-boot-docker"
+  zuulService:
+    build: zuulService/
+    image: "suvdev/zuulservice"
+    depends_on:
+      - "manager"
+    links:
+      - "manager:manager"
+    ports:
+    - "5555:5555"
+    container_name: "zuulservice"
+
+
+

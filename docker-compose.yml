@@ -7,6 +7,8 @@ services:
       MYSQL_DATABASE: db_test
       MYSQL_USER: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+    - mysqldata:/var/lib/mysql
   manager:
     build: ./
     image: "suvdev/spring-boot-docker"
@@ -47,3 +49,5 @@ services:
     ports:
       - "4445:4445"
     container_name: "testservice"
+volumes:
+  mysqldata:

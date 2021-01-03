@@ -8,13 +8,13 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://spring-boot-docker:5000/eureka/
+      defaultZone: http://localhost:5000/eureka/
     instance:
       hostname: localhost
 
 # HTTP Server
 server:
-  port: 5555   # HTTP (Tomcat) port
+  port: 8080   # HTTP (Tomcat) port
 
 zuul:
   routes:

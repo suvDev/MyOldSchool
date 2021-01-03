@@ -50,7 +50,7 @@ public class StudentLayerHibernate {
             t = session.beginTransaction();
 
             StudentCountHibernate std = new StudentCountHibernate();
-            std.setId(id);
+            std.setSid(id);
             std.setNames(name);
             std.setCount(count);
 

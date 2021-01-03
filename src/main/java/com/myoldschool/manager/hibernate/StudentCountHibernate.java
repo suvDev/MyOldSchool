@@ -1,8 +1,8 @@
 package com.myoldschool.manager.hibernate;
 
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -10,16 +10,17 @@ import javax.persistence.Table;
 public class StudentCountHibernate {
 
     @Id
-    private int id;
+    private int sid;
     private int count;
     private String names;
+    private double marks;
 
-    public int getId() {
-        return id;
+    public int getSid() {
+        return sid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSid(int sid) {
+        this.sid = sid;
     }
 
     public int getCount() {
@@ -36,5 +37,13 @@ public class StudentCountHibernate {
 
     public void setNames(String names) {
         this.names = names;
+    }
+
+    public double getMarks() {
+        return marks;
+    }
+
+    public void setMarks(double marks) {
+        this.marks = marks;
     }
 }

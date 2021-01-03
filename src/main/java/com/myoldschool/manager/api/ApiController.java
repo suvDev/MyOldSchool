@@ -25,6 +25,16 @@ public class ApiController {
         return bsh.showData();
     }
 
+    // a call to student procedure for table student_count
+    @PostMapping("/callStudentProcedure")
+    public ArrayList<Student> callStudentProcedure(@RequestParam(value = "count", defaultValue = "0") int count,
+                                       @RequestParam(value = "marks", defaultValue = "0.0") double marks,
+                                       @RequestParam(value = "names", defaultValue = "name") String names,
+                                       @RequestParam(value = "sid", defaultValue = "0") int sid) {
+
+        return bsh.callStudentProcedure(count, marks, names, sid);
+    }
+
     @GetMapping("/addUser")
     public String addUser(@RequestParam(value = "id", defaultValue = "0") int id,
                           @RequestParam(value = "name", defaultValue = "name") String name,

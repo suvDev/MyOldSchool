@@ -17,6 +17,6 @@ public class InterCommTestService {
 
     @GetMapping("/testInterComm")
     public String testInterServiceCommunication(){
-        return "intercommunication working between services";
+        return "intercommunication working between services on port 4450";
     }
 }

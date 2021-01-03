@@ -32,19 +32,19 @@ public class ZulPostFilter extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
-        RequestContext ctx = RequestContext.getCurrentContext();
-        InputStream responseDataStream = ctx.getResponseDataStream();
-        try {
-            String responseAsString = StreamUtils.copyToString(responseDataStream, Charset.forName("UTF-8"));
-            log.info(String.format("Response before: %s", responseAsString));
+//        RequestContext ctx = RequestContext.getCurrentContext();
+//        InputStream responseDataStream = ctx.getResponseDataStream();
+//        try {
+//            String responseAsString = StreamUtils.copyToString(responseDataStream, Charset.forName("UTF-8"));
+//            log.info(String.format("Response before: %s", responseAsString));
             // Do want you want with your String response
-            responseAsString = "response updated";
+//            responseAsString = "response updated";
             // Replace the response with the modified object
-            ctx.setResponseBody(responseAsString);
-            log.info(String.format("Response after: %s", responseAsString));
-        } catch (IOException e) {
-            log.warn("Error reading body", e);
-        }
+//            ctx.setResponseBody(responseAsString);
+//            log.info(String.format("Response after: %s", responseAsString));
+//        } catch (IOException e) {
+//            log.warn("Error reading body", e);
+//        }
         return null;
     }
 }

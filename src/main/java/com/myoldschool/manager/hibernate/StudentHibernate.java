@@ -1,18 +1,24 @@
 package com.myoldschool.manager.hibernate;
 
+import com.myoldschool.manager.api.ConcatedNameRollNum;
+import org.hibernate.annotations.NamedNativeQuery;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
-@Table(name="tbl_student")
+@Table(name = "tbl_student")
 public class StudentHibernate {
 
     @Id
-    private  int sid;
-    private  String sname;
-    private  Double marks;
-    private  int rollno;
+    private int sid;
+    private String sname;
+    private Double marks;
+    private int rollno;
 
     public int getSid() {
         return sid;

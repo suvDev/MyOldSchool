@@ -27,12 +27,9 @@ public class ApiController {
 
     // a call to student procedure for table student_count
     @PostMapping("/callStudentProcedure")
-    public ArrayList<Student> callStudentProcedure(@RequestParam(value = "count", defaultValue = "0") int count,
-                                       @RequestParam(value = "marks", defaultValue = "0.0") double marks,
-                                       @RequestParam(value = "names", defaultValue = "name") String names,
-                                       @RequestParam(value = "sid", defaultValue = "0") int sid) {
+    public ArrayList<Student> callStudentProcedure(@RequestBody StudentCount student) {
 
-        return bsh.callStudentProcedure(count, marks, names, sid);
+        return bsh.callStudentProcedure(student.getCount(), student.getMarks(), student.getNames(), student.getSid());
     }
 
     @GetMapping("/addUser")

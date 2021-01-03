@@ -32,6 +32,12 @@ public class ApiController {
         return bsh.callStudentProcedure(student.getCount(), student.getMarks(), student.getNames(), student.getSid());
     }
 
+    @GetMapping("/tblStudentFunction")
+    public ArrayList<String> callTblStudentFunction() {
+//        return bs.showData();
+        return bsh.callTableStudentFunction();
+    }
+
     @GetMapping("/addUser")
     public String addUser(@RequestParam(value = "id", defaultValue = "0") int id,
                           @RequestParam(value = "name", defaultValue = "name") String name,

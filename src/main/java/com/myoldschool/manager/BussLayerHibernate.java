@@ -16,6 +16,8 @@ import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
+import java.sql.CallableStatement;
+import java.sql.Types;
 import java.util.ArrayList;
 
 @Component
@@ -61,6 +63,42 @@ public class BussLayerHibernate {
                     .setParameter("sid", sid);
 
             return new ArrayList<Student>(query.list());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+            session = null;
+        }
+        return null;
+    }
+
+    public ArrayList<String> callTableStudentFunction() {
+        try {
+            ArrayList<String> names = new ArrayList<>();
+            session = factory.openSession();
+
+            // The below code works to execute the stored function in mysql database w.r.t to the table name.
+            // The below code will result in concating the column sname and rollno together for all rows.
+
+            Query query = session.createSQLQuery("SELECT name_rollnum(sname,rollno) FROM tbl_student");
+
+            return new ArrayList<String>(query.list());
+
+            // The below code works to execute only stored function in mysql database. It does not get result related
+            // to any table. The below code will result only a single arraylist ["Spam 93"]
+
+          /*  session.doWork(connection -> {
+                try (CallableStatement function = connection.prepareCall(
+                        "SELECT { ? = call name_rollnum(?,?) } FROM `tbl_student`")) {
+                    function.registerOutParameter(1,Types.VARCHAR);
+                    function.setString(2,"Spam");
+                    function.setInt(3, 93);
+                    function.execute();
+                    names.add(function.getString(1));
+                }
+            });
+
+            return names;*/
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

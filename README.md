@@ -37,3 +37,5 @@ Don't forget to start wamp server first before running the above command.
 <b>Docker Compose</b>: Docker compose is added to avoid the overhead to launch each container separately and linking it up with the dependent containers. Now I have added volume for persistant data storage, now database will not get deleted after using this command "docker-compose down" but it will be after using "docker-compose down -v".
 
 <b>MySql Functions and Procedures</b> : The API's "tblStudentFunction" and "callStudentProcedure" makes a call to function(it concats sname and rollno columns of every row) and procedure(it inserts a row and returns all existing rows).
+
+<b> Caching </b>: Added caching to getUser API on the basis of id.

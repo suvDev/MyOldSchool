@@ -13,6 +13,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
@@ -40,65 +41,6 @@ public class BussLayerHibernate {
             String hql = "FROM StudentHibernate";
             query = session.createQuery(hql);
             return new ArrayList<Student>(query.list());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-            session = null;
-        }
-        return null;
-    }
-
-    public ArrayList<Student> callStudentProcedure(int count,
-                                                   double marks,
-                                                   String names,
-                                                   int sid) {
-        try {
-            session = factory.openSession();
-            Query query = session.createSQLQuery("CALL student (:count, :marks, :names, :sid)")
-                    .addEntity(StudentCountHibernate.class)
-                    .setParameter("count", count)
-                    .setParameter("marks", marks)
-                    .setParameter("names", names)
-                    .setParameter("sid", sid);
-
-            return new ArrayList<Student>(query.list());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-            session = null;
-        }
-        return null;
-    }
-
-    public ArrayList<String> callTableStudentFunction() {
-        try {
-            ArrayList<String> names = new ArrayList<>();
-            session = factory.openSession();
-
-            // The below code works to execute the stored function in mysql database w.r.t to the table name.
-            // The below code will result in concating the column sname and rollno together for all rows.
-
-            Query query = session.createSQLQuery("SELECT name_rollnum(sname,rollno) FROM tbl_student");
-
-            return new ArrayList<String>(query.list());
-
-            // The below code works to execute only stored function in mysql database. It does not get result related
-            // to any table. The below code will result only a single arraylist ["Spam 93"]
-
-          /*  session.doWork(connection -> {
-                try (CallableStatement function = connection.prepareCall(
-                        "SELECT { ? = call name_rollnum(?,?) } FROM `tbl_student`")) {
-                    function.registerOutParameter(1,Types.VARCHAR);
-                    function.setString(2,"Spam");
-                    function.setInt(3, 93);
-                    function.execute();
-                    names.add(function.getString(1));
-                }
-            });
-
-            return names;*/
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -173,6 +115,22 @@ public class BussLayerHibernate {
 //        return null;
     }
 
+    @Cacheable(value = "student-cache", key = "'StudentCache'+#id")
+    public StudentHibernate getRecord(int id){
+        try{
+            Thread.sleep(4000);
+            session = factory.openSession();
+            StudentHibernate std = session.get(StudentHibernate.class, id);
+            return std;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            session.close();
+            session = null;
+        }
+        return null;
+    }
+
     public String deleteRecord(int id) {
         try {
             session = factory.openSession();
@@ -195,6 +153,66 @@ public class BussLayerHibernate {
             session = null;
         }
     }
+
+    public ArrayList<Student> callStudentProcedure(int count,
+                                                   double marks,
+                                                   String names,
+                                                   int sid) {
+        try {
+            session = factory.openSession();
+            Query query = session.createSQLQuery("CALL student (:count, :marks, :names, :sid)")
+                    .addEntity(StudentCountHibernate.class)
+                    .setParameter("count", count)
+                    .setParameter("marks", marks)
+                    .setParameter("names", names)
+                    .setParameter("sid", sid);
+
+            return new ArrayList<Student>(query.list());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+            session = null;
+        }
+        return null;
+    }
+
+    public ArrayList<String> callTableStudentFunction() {
+        try {
+            ArrayList<String> names = new ArrayList<>();
+            session = factory.openSession();
+
+            // The below code works to execute the stored function in mysql database w.r.t to the table name.
+            // The below code will result in concating the column sname and rollno together for all rows.
+
+            Query query = session.createSQLQuery("SELECT name_rollnum(sname,rollno) FROM tbl_student");
+
+            return new ArrayList<String>(query.list());
+
+            // The below code works to execute only stored function in mysql database. It does not get result related
+            // to any table. The below code will result only a single arraylist ["Spam 93"]
+
+          /*  session.doWork(connection -> {
+                try (CallableStatement function = connection.prepareCall(
+                        "SELECT { ? = call name_rollnum(?,?) } FROM `tbl_student`")) {
+                    function.registerOutParameter(1,Types.VARCHAR);
+                    function.setString(2,"Spam");
+                    function.setInt(3, 93);
+                    function.execute();
+                    names.add(function.getString(1));
+                }
+            });
+
+            return names;*/
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+            session = null;
+        }
+        return null;
+    }
+
 
 //    @org.springframework.data.jpa.repository.Query(value = "CALL student(:count, :marks, :names, :sid", nativeQuery = true)
 //    public ArrayList<Student> callStudentProcedure(@Param("count")int count,

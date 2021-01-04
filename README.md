@@ -20,7 +20,7 @@ To run this project navigate to your project path(Ex: c:/project/manager/manager
 
 Don't forget to start wamp server first before running the above command.
 
-<b>Check Build:</b> For checking that everything is working fine after a successful build, type this http://localhost:8080/getRecords url in your browser and hit enter, now if you have already inserted some data manually into the database then it should return that entries from db.
+<b>Check Build:</b> For checking that everything is working fine after a successful build, type this http://localhost:5000/getRecords url in your browser and hit enter, now if you have already inserted some data manually into the database then it should return that entries from db.
 
 <b>Hibernate</b>: Hibernate support is added to this project, please check branch "feature/hibernate". Now I am performing crud operations by using hibernate , that you can check in class <b>BussLayerHibernate</b> but still manual queries codebase exist in the project in class BussLayer.
 

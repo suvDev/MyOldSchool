@@ -2,6 +2,7 @@ package com.myoldschool.manager.api;
 
 import com.myoldschool.manager.BussLayer;
 import com.myoldschool.manager.BussLayerHibernate;
+import com.myoldschool.manager.hibernate.StudentHibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -70,5 +71,12 @@ public class ApiController {
         HashMap<String, String> map = new HashMap<>();
         map.put("status",bsh.deleteRecord(student.getId()));
         return map;
+    }
+
+    @PostMapping(path = "/getUser", consumes = "application/json", produces = "application/json")
+    public StudentHibernate getUser(@RequestBody Student student) {
+
+//        return bs.deleteRecord(student.getId());
+       return bsh.getRecord(student.getId());
     }
 }

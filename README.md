@@ -38,4 +38,4 @@ Don't forget to start wamp server first before running the above command.
 
 <b>MySql Functions and Procedures</b> : The API's "tblStudentFunction" and "callStudentProcedure" makes a call to function(it concats sname and rollno columns of every row) and procedure(it inserts a row and returns all existing rows).
 
-<b> Caching </b>: Added caching to getUser API on the basis of id.
+<b> Caching </b>: Added caching to getUser API on the basis of id by using EnCache libraray. The cache works on condition that if parameter <b>isCacheable == null && isCacheable is false</b> then it will remove the cache from memory and proceed with the method body and if not then the response will be returned from cache if its there or it will be stored first and then will be returned by using annotation <b>@CacheEvict</b>.

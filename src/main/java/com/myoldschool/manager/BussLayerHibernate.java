@@ -13,6 +13,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Component;
 import java.sql.CallableStatement;
 import java.sql.Types;
 import java.util.ArrayList;
+
+import static com.myoldschool.manager.CacheConstant.TEN_SECONDS_CACHE;
 
 @Component
 public class BussLayerHibernate {
@@ -115,16 +118,17 @@ public class BussLayerHibernate {
 //        return null;
     }
 
-    @Cacheable(value = "student-cache", key = "'StudentCache'+#id")
-    public StudentHibernate getRecord(int id){
-        try{
+    @CacheEvict(value = TEN_SECONDS_CACHE, key = "'StudentInCache'+#id", condition = "#isCacheable == null && !#isCacheable", beforeInvocation = true)
+//    @Cacheable(value = TEN_SECONDS_CACHE, key = "'StudentInCache'+#id", condition = "#isCacheable != null && #isCacheable")
+    public StudentHibernate getRecord(int id, boolean isCacheable) {
+        try {
             Thread.sleep(4000);
             session = factory.openSession();
             StudentHibernate std = session.get(StudentHibernate.class, id);
             return std;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             session.close();
             session = null;
         }

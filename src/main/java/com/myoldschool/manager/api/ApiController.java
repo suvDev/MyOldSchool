@@ -73,10 +73,11 @@ public class ApiController {
         return map;
     }
 
-    @PostMapping(path = "/getUser", consumes = "application/json", produces = "application/json")
-    public StudentHibernate getUser(@RequestBody Student student) {
+    @RequestMapping(path = "/getUser", consumes = "application/json", produces = "application/json")
+    public StudentHibernate getUser(@RequestBody Student student,@RequestParam(name = "isCacheable") boolean isCacheable) {
 
 //        return bs.deleteRecord(student.getId());
-       return bsh.getRecord(student.getId());
+        System.out.println("IsCacheable value: "+isCacheable);
+       return bsh.getRecord(student.getId(), isCacheable);
     }
 }
